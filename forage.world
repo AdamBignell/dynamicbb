@@ -1,0 +1,356 @@
+# forage.world - basic test world for bucket brigade
+# Authors: Modified from simple.world
+# $Id$
+
+include "pioneer.inc"
+include "map.inc"
+include "sick.inc"
+
+# time to pause (in GUI mode) or quit (in headless mode (-g)) the simulation
+quit_time 1800 # 1/2 hour of simulated time
+
+paused 0
+
+# spatial resolution of the underlying occupancy grid. Default is 0.02m.
+resolution 0.02
+
+# set the multiple of real time that Stage should try to achieve. Default is 1. 
+# set to 0 to go as fast as possible.
+speedup 0
+
+# configure the GUI window
+window
+(
+  size [ 666.000 666.000 ] # in pixels
+  scale 36.995   # pixels per meter
+  center [ -0.274  -0.274 ]
+  rotate [ 0  0 ]
+
+  show_flags 1
+  			
+  show_data 0             # 1=on 0=off
+)
+
+# load an environment bitmap
+floorplan
+( 
+  name "empty"
+  size [16.000 16.000 0.800]
+  pose [0 0 0 0]
+  bitmap "bitmaps/empty.png"
+)
+
+
+define autorob pioneer2dx
+(
+  # can refer to the robot by this name
+  name "r0"
+  pose [ -6.946 -6.947 0 45.000 ] 
+
+  # pioneer2dx's sonars	will be ranger:0 and the laser will be ranger:1
+  sicklaser( pose [ 0 0 0 0 ]) 
+ 
+  ctrl "forager"
+
+  # report error-free position in world coordinates
+  localization "gps"
+  localization_origin [ 0 0 0 0 ]
+
+  obstacle_return 0
+
+  fiducial_return 666
+  fiducial()
+)
+   
+zone
+(
+  size [ 1.000 1.000 0.01 ]
+  color "orchid2"
+  pose [ 6.00 6.00 0 0 ]
+  name "sink"
+ 
+  ctrl "sink"
+)
+
+define puck model(
+  size [ 0.0125 0.0125 0.1]
+  gui_move 1
+  gui_nose 0
+  obstacle_return 0
+  fiducial_return 10
+
+  ctrl "puck"
+)
+
+autorob( pose [ -5.62  -5.62 0 202 ] name "r0" )
+autorob( pose [ -5.62  -1.88 0 257 ] name "r1" )
+autorob( pose [ -5.62  1.88 0 279 ] name "r2" )
+autorob( pose [ -5.62  5.62 0 11 ] name "r3" )
+autorob( pose [ -1.88  -5.62 0 206 ] name "r4" )
+autorob( pose [ -1.88  -1.88 0 52 ] name "r5" )
+autorob( pose [ -1.88  1.88 0 168 ] name "r6" )
+autorob( pose [ -1.88  5.62 0 283 ] name "r7" )
+autorob( pose [ 1.88  -5.62 0 269 ] name "r8" )
+autorob( pose [ 1.88  -1.88 0 95 ] name "r9" )
+autorob( pose [ 1.88  1.88 0 336 ] name "r10" )
+autorob( pose [ 1.88  5.62 0 44 ] name "r11" )
+autorob( pose [ 5.62  -5.62 0 68 ] name "r12" )
+autorob( pose [ 5.62  -1.88 0 91 ] name "r13" )
+autorob( pose [ 5.62  1.88 0 125 ] name "r14" )
+autorob( pose [ 5.62  5.62 0 260 ] name "r15" )
+puck( pose [ -5.57929033377  -3.10732211338 0.2 0 ] color "black" )
+puck( pose [ -1.09523689588  2.80230626733 0.2 0 ] color "black" )
+puck( pose [ -1.83436578567  -3.33221841283 0.2 0 ] color "black" )
+puck( pose [ 2.27533812489  -1.02611974846 0.2 0 ] color "black" )
+puck( pose [ -6.05464851272  -2.2604831929 0.2 0 ] color "black" )
+puck( pose [ -4.00763883366  3.05060599217 0.2 0 ] color "black" )
+puck( pose [ 1.26809663402  6.75 0.2 0 ] color "black" )
+puck( pose [ -0.483912429682  -2.76773964278 0.2 0 ] color "black" )
+puck( pose [ -3.53408020548  -0.179973107775 0.2 0 ] color "black" )
+puck( pose [ -1.50171534592  -5.18391817945 0.2 0 ] color "black" )
+puck( pose [ 1.06731021715  -3.18262577782 0.2 0 ] color "black" )
+puck( pose [ -1.74201377152  -3.2393180767 0.2 0 ] color "black" )
+puck( pose [ 6.14697479465  4.75815982446 0.2 0 ] color "black" )
+puck( pose [ 1.59611046344  2.31985989395 0.2 0 ] color "black" )
+puck( pose [ -1.06841276566  -3.11122256353 0.2 0 ] color "black" )
+puck( pose [ 5.11547909542  5.20656736658 0.2 0 ] color "black" )
+puck( pose [ -2.16990557665  4.30693337198 0.2 0 ] color "black" )
+puck( pose [ -6.83759811628  4.6397321858 0.2 0 ] color "black" )
+puck( pose [ -1.44525092134  5.94687706486 0.2 0 ] color "black" )
+puck( pose [ 6.38077355949  6.7865401554 0.2 0 ] color "black" )
+puck( pose [ -5.84021159449  6.75 0.2 0 ] color "black" )
+puck( pose [ 0.231057422626  -1.81396576724 0.2 0 ] color "black" )
+puck( pose [ 1.68900038589  3.06465654202 0.2 0 ] color "black" )
+puck( pose [ -6.71600377168  5.10396470162 0.2 0 ] color "black" )
+puck( pose [ 5.34537348485  5.68257225163 0.2 0 ] color "black" )
+puck( pose [ -5.20772106714  -3.66960451213 0.2 0 ] color "black" )
+puck( pose [ -2.56682230733  0.380020042624 0.2 0 ] color "black" )
+puck( pose [ -5.32344239745  -6.46270911126 0.2 0 ] color "black" )
+puck( pose [ -0.769789731774  -4.51503180702 0.2 0 ] color "black" )
+puck( pose [ 5.82684116602  0.490365126529 0.2 0 ] color "black" )
+puck( pose [ 5.43616508299  -4.4913054382 0.2 0 ] color "black" )
+puck( pose [ 6.75  3.98119231711 0.2 0 ] color "black" )
+puck( pose [ -1.7738662172  -2.72830020521 0.2 0 ] color "black" )
+puck( pose [ 6.75  6.75 0.2 0 ] color "black" )
+puck( pose [ -0.639456290907  1.48137431198 0.2 0 ] color "black" )
+puck( pose [ -0.826435659567  -6.68830717823 0.2 0 ] color "black" )
+puck( pose [ -6.75  -4.44776359634 0.2 0 ] color "black" )
+puck( pose [ 2.06862204212  -6.19825551797 0.2 0 ] color "black" )
+puck( pose [ 3.37188144349  -1.79554469112 0.2 0 ] color "black" )
+puck( pose [ 2.95147548684  -6.51091834987 0.2 0 ] color "black" )
+puck( pose [ 6.75  -0.25187523854 0.2 0 ] color "black" )
+puck( pose [ -5.64902538463  -6.0351797342 0.2 0 ] color "black" )
+puck( pose [ -5.62135581903  3.87273437439 0.2 0 ] color "black" )
+puck( pose [ 1.62833627878  4.34336815452 0.2 0 ] color "black" )
+puck( pose [ 6.16965518625  6.75 0.2 0 ] color "black" )
+puck( pose [ -4.23734945939  6.64342905616 0.2 0 ] color "black" )
+puck( pose [ -4.66441640203  -2.58914562505 0.2 0 ] color "black" )
+puck( pose [ 1.13156466014  -4.87322544107 0.2 0 ] color "black" )
+puck( pose [ -6.1521446002  2.72579748701 0.2 0 ] color "black" )
+puck( pose [ 6.63155454311  -2.74250518363 0.2 0 ] color "black" )
+puck( pose [ 6.6364590413  4.36279531743 0.2 0 ] color "black" )
+puck( pose [ 4.36953922475  -5.69516491666 0.2 0 ] color "black" )
+puck( pose [ 0.122421166851  -3.02450029182 0.2 0 ] color "black" )
+puck( pose [ 6.93558807733  -1.67594252993 0.2 0 ] color "black" )
+puck( pose [ 2.92347891889  0.738833514835 0.2 0 ] color "black" )
+puck( pose [ 5.1605931856  3.05899266063 0.2 0 ] color "black" )
+puck( pose [ 1.69082543828  0.756961624326 0.2 0 ] color "black" )
+puck( pose [ 4.73512305955  -5.01452021512 0.2 0 ] color "black" )
+puck( pose [ 4.87454311357  1.95074070139 0.2 0 ] color "black" )
+puck( pose [ -6.32239252208  -0.264094265419 0.2 0 ] color "black" )
+puck( pose [ 4.58015273837  6.75 0.2 0 ] color "black" )
+puck( pose [ -1.95325816989  6.75 0.2 0 ] color "black" )
+puck( pose [ -4.78952184458  5.61980972753 0.2 0 ] color "black" )
+puck( pose [ -6.00175937353  -6.72087980359 0.2 0 ] color "black" )
+puck( pose [ -6.03009631139  -6.76900954833 0.2 0 ] color "black" )
+puck( pose [ -1.32648516533  -6.05781011914 0.2 0 ] color "black" )
+puck( pose [ -0.0665329265791  6.14498460717 0.2 0 ] color "black" )
+puck( pose [ 6.50063084639  -5.90294813494 0.2 0 ] color "black" )
+puck( pose [ 4.83889322736  0.963796765181 0.2 0 ] color "black" )
+puck( pose [ -3.5927216309  6.75 0.2 0 ] color "black" )
+puck( pose [ 6.95855932334  3.05410898366 0.2 0 ] color "black" )
+puck( pose [ 4.58800084039  -6.75 0.2 0 ] color "black" )
+puck( pose [ 4.094765653  3.67868428672 0.2 0 ] color "black" )
+puck( pose [ -2.06506356657  5.84933487457 0.2 0 ] color "black" )
+puck( pose [ 5.20288167892  -4.11065584664 0.2 0 ] color "black" )
+puck( pose [ -2.87493130644  3.11966105152 0.2 0 ] color "black" )
+puck( pose [ -4.97080046169  5.86621932536 0.2 0 ] color "black" )
+puck( pose [ -3.45660829582  -6.47491371669 0.2 0 ] color "black" )
+puck( pose [ -6.58984770293  0.788918917099 0.2 0 ] color "black" )
+puck( pose [ 4.88121022415  2.74533674466 0.2 0 ] color "black" )
+puck( pose [ -4.8155551789  -6.3296991154 0.2 0 ] color "black" )
+puck( pose [ 0.371331822371  -0.678510629385 0.2 0 ] color "black" )
+puck( pose [ 6.75996743675  -6.75 0.2 0 ] color "black" )
+puck( pose [ -6.46263585224  3.28352135092 0.2 0 ] color "black" )
+puck( pose [ -6.75  5.8659004718 0.2 0 ] color "black" )
+puck( pose [ 0.516089896103  4.36243839619 0.2 0 ] color "black" )
+puck( pose [ -2.46647893689  5.9044393445 0.2 0 ] color "black" )
+puck( pose [ -3.77659214318  -2.07289987988 0.2 0 ] color "black" )
+puck( pose [ -1.84727956803  0.0719543829063 0.2 0 ] color "black" )
+puck( pose [ 5.32096382475  -1.2070119407 0.2 0 ] color "black" )
+puck( pose [ -6.75  -0.278219969467 0.2 0 ] color "black" )
+puck( pose [ 2.65341355206  -0.950654590374 0.2 0 ] color "black" )
+puck( pose [ -0.936401992842  -1.26119910131 0.2 0 ] color "black" )
+puck( pose [ -3.43382024873  2.56575637382 0.2 0 ] color "black" )
+puck( pose [ 4.36126503124  -4.46715015302 0.2 0 ] color "black" )
+puck( pose [ 6.15998639495  6.75 0.2 0 ] color "black" )
+puck( pose [ 6.58997299529  -6.75 0.2 0 ] color "black" )
+puck( pose [ 6.60536700003  -5.16832471235 0.2 0 ] color "black" )
+puck( pose [ -4.24093503806  0.307451015867 0.2 0 ] color "black" )
+puck( pose [ 3.86245128099  -6.70287055039 0.2 0 ] color "black" )
+puck( pose [ 4.20843118912  -3.3832369373 0.2 0 ] color "black" )
+puck( pose [ -6.75  -2.70524233214 0.2 0 ] color "black" )
+puck( pose [ 3.87099795957  4.63305983871 0.2 0 ] color "black" )
+puck( pose [ 2.41940716349  -0.281791434081 0.2 0 ] color "black" )
+puck( pose [ -1.26678551694  -2.15947527626 0.2 0 ] color "black" )
+puck( pose [ 3.48269979208  6.75 0.2 0 ] color "black" )
+puck( pose [ 4.06219774835  6.151209157 0.2 0 ] color "black" )
+puck( pose [ 3.0533482638  4.168186577 0.2 0 ] color "black" )
+puck( pose [ 6.01646636469  -5.88964562941 0.2 0 ] color "black" )
+puck( pose [ -5.2120295804  4.60140662023 0.2 0 ] color "black" )
+puck( pose [ -6.75  5.56585877846 0.2 0 ] color "black" )
+puck( pose [ 4.7513286285  2.64024212699 0.2 0 ] color "black" )
+puck( pose [ 6.06812816599  0.724431002602 0.2 0 ] color "black" )
+puck( pose [ -5.30856256495  1.63867211675 0.2 0 ] color "black" )
+puck( pose [ 4.92819633804  1.93034882321 0.2 0 ] color "black" )
+puck( pose [ -5.12090946855  -5.45253164029 0.2 0 ] color "black" )
+puck( pose [ 3.97531768697  1.54360745958 0.2 0 ] color "black" )
+puck( pose [ 0.509130374259  6.82238823311 0.2 0 ] color "black" )
+puck( pose [ -2.83932942033  2.74012922419 0.2 0 ] color "black" )
+puck( pose [ -6.11070437535  6.51518640004 0.2 0 ] color "black" )
+puck( pose [ -6.786725426  2.17225057985 0.2 0 ] color "black" )
+puck( pose [ 3.82857770189  -6.85911077522 0.2 0 ] color "black" )
+puck( pose [ 1.84472460707  6.75 0.2 0 ] color "black" )
+puck( pose [ 6.1181572605  1.50094305141 0.2 0 ] color "black" )
+puck( pose [ -4.55202323452  2.88970954864 0.2 0 ] color "black" )
+puck( pose [ 4.30104854565  6.40651989173 0.2 0 ] color "black" )
+puck( pose [ -4.05324493541  -5.60448233073 0.2 0 ] color "black" )
+puck( pose [ -5.71745614272  -5.35039353767 0.2 0 ] color "black" )
+puck( pose [ -3.26486524771  -6.27145208007 0.2 0 ] color "black" )
+puck( pose [ 6.82548666978  -5.74011777933 0.2 0 ] color "black" )
+puck( pose [ -2.04732122951  6.9144268938 0.2 0 ] color "black" )
+puck( pose [ -3.98413960167  -6.71913271179 0.2 0 ] color "black" )
+puck( pose [ -6.03133034261  -0.0457588106679 0.2 0 ] color "black" )
+puck( pose [ 2.20972218792  -5.27353924002 0.2 0 ] color "black" )
+puck( pose [ -6.02942460204  -1.44666849972 0.2 0 ] color "black" )
+puck( pose [ -0.305685018966  0.847869133058 0.2 0 ] color "black" )
+puck( pose [ -4.13729401151  5.83813580996 0.2 0 ] color "black" )
+puck( pose [ -1.37586428516  -3.46105127206 0.2 0 ] color "black" )
+puck( pose [ -4.57143221325  1.68956479357 0.2 0 ] color "black" )
+puck( pose [ -2.0269263888  -0.0173918333906 0.2 0 ] color "black" )
+puck( pose [ -0.953232247274  -4.57027631801 0.2 0 ] color "black" )
+puck( pose [ 3.73955823789  -1.23055328796 0.2 0 ] color "black" )
+puck( pose [ 6.75  -0.189647413732 0.2 0 ] color "black" )
+puck( pose [ -6.53574471696  6.75 0.2 0 ] color "black" )
+puck( pose [ -6.82266989775  4.43597535062 0.2 0 ] color "black" )
+puck( pose [ 4.23485950022  -2.83142073211 0.2 0 ] color "black" )
+puck( pose [ 5.24381120881  -1.3510018475 0.2 0 ] color "black" )
+puck( pose [ 2.82392230542  0.0642402546996 0.2 0 ] color "black" )
+puck( pose [ 5.35749168558  -5.93955308979 0.2 0 ] color "black" )
+puck( pose [ 0.181741685765  -2.27202260338 0.2 0 ] color "black" )
+puck( pose [ 1.17316705035  6.10804537937 0.2 0 ] color "black" )
+puck( pose [ 6.36752427912  6.78088918003 0.2 0 ] color "black" )
+puck( pose [ -5.92317883874  -1.33737208984 0.2 0 ] color "black" )
+puck( pose [ -5.98362625455  -5.30465531791 0.2 0 ] color "black" )
+puck( pose [ 5.42234955111  6.36777273896 0.2 0 ] color "black" )
+puck( pose [ -4.92899869044  6.75 0.2 0 ] color "black" )
+puck( pose [ -6.84812853087  -2.52321951971 0.2 0 ] color "black" )
+puck( pose [ 1.29079877321  -4.232083743 0.2 0 ] color "black" )
+puck( pose [ 1.18970379138  2.93454977039 0.2 0 ] color "black" )
+puck( pose [ 6.6801836042  -1.97961011527 0.2 0 ] color "black" )
+puck( pose [ 3.8990313213  -5.21087326828 0.2 0 ] color "black" )
+puck( pose [ -3.254142414  5.82992496177 0.2 0 ] color "black" )
+puck( pose [ -6.70356871948  -5.54785768265 0.2 0 ] color "black" )
+puck( pose [ 3.56588701258  -3.43763399656 0.2 0 ] color "black" )
+puck( pose [ -1.21709589318  -3.54586353679 0.2 0 ] color "black" )
+puck( pose [ -5.50303914664  -3.40782114125 0.2 0 ] color "black" )
+puck( pose [ 1.84765709678  5.62180166923 0.2 0 ] color "black" )
+puck( pose [ -0.716725535601  -3.86490903789 0.2 0 ] color "black" )
+puck( pose [ 0.876015810925  -5.21952396587 0.2 0 ] color "black" )
+puck( pose [ -2.30058901049  1.97354549107 0.2 0 ] color "black" )
+puck( pose [ -3.15120731954  6.30048504747 0.2 0 ] color "black" )
+puck( pose [ -6.34218318799  4.04009680676 0.2 0 ] color "black" )
+puck( pose [ 0.931797319698  -5.85432062052 0.2 0 ] color "black" )
+puck( pose [ -3.62666411694  -4.50129597259 0.2 0 ] color "black" )
+puck( pose [ -2.47250794171  -1.8843101885 0.2 0 ] color "black" )
+puck( pose [ -3.09699923566  3.01181138792 0.2 0 ] color "black" )
+puck( pose [ 0.645938490776  -6.59755246126 0.2 0 ] color "black" )
+puck( pose [ 6.47831419791  6.16155239887 0.2 0 ] color "black" )
+puck( pose [ -6.89968338502  -0.068323293701 0.2 0 ] color "black" )
+puck( pose [ -1.70669947975  -0.470729829485 0.2 0 ] color "black" )
+puck( pose [ -4.55618164488  1.05536175475 0.2 0 ] color "black" )
+puck( pose [ 3.96626951395  -1.09926764927 0.2 0 ] color "black" )
+puck( pose [ 4.72855717642  5.69942191117 0.2 0 ] color "black" )
+puck( pose [ 0.0659192150387  6.11140439212 0.2 0 ] color "black" )
+puck( pose [ 6.75  0.285438687418 0.2 0 ] color "black" )
+puck( pose [ -3.03341991799  2.30107163626 0.2 0 ] color "black" )
+puck( pose [ -6.10237309601  -1.0658007132 0.2 0 ] color "black" )
+puck( pose [ -4.264226295  -3.5269768172 0.2 0 ] color "black" )
+puck( pose [ -5.83649835437  0.531410455293 0.2 0 ] color "black" )
+puck( pose [ -5.82815843894  -1.96845107466 0.2 0 ] color "black" )
+puck( pose [ -6.71418114868  -5.50280174098 0.2 0 ] color "black" )
+puck( pose [ 6.85206497799  -1.75052896547 0.2 0 ] color "black" )
+puck( pose [ 6.67340931315  -1.35492732442 0.2 0 ] color "black" )
+puck( pose [ -4.92708195237  -4.78185280569 0.2 0 ] color "black" )
+puck( pose [ -5.83009590452  5.04876728513 0.2 0 ] color "black" )
+puck( pose [ -3.20086035244  -3.45871740548 0.2 0 ] color "black" )
+puck( pose [ -5.6571985875  -1.06975997829 0.2 0 ] color "black" )
+puck( pose [ 2.54580379054  6.72432247458 0.2 0 ] color "black" )
+puck( pose [ -1.07900944215  6.49512131224 0.2 0 ] color "black" )
+puck( pose [ 0.425974973327  5.47238747969 0.2 0 ] color "black" )
+puck( pose [ -0.659964885823  4.80125705161 0.2 0 ] color "black" )
+puck( pose [ 1.63575152657  0.24172791359 0.2 0 ] color "black" )
+puck( pose [ -6.38094348206  4.30460797797 0.2 0 ] color "black" )
+puck( pose [ -0.633756830689  6.37651720557 0.2 0 ] color "black" )
+puck( pose [ 5.08880341506  -6.03190142244 0.2 0 ] color "black" )
+puck( pose [ -0.0907258322214  -1.00339634072 0.2 0 ] color "black" )
+puck( pose [ -4.27738733911  6.0625498567 0.2 0 ] color "black" )
+puck( pose [ 6.75  1.5346888213 0.2 0 ] color "black" )
+puck( pose [ -1.79636016783  -1.06566998852 0.2 0 ] color "black" )
+puck( pose [ -6.75  6.08946832777 0.2 0 ] color "black" )
+puck( pose [ 4.10190010265  -0.863003233954 0.2 0 ] color "black" )
+puck( pose [ 1.2320589341  3.4710783743 0.2 0 ] color "black" )
+puck( pose [ 5.66959562776  4.0957249958 0.2 0 ] color "black" )
+puck( pose [ -0.0578028507236  -5.45240081884 0.2 0 ] color "black" )
+puck( pose [ -5.63461497414  -1.12506586716 0.2 0 ] color "black" )
+puck( pose [ -1.401076342  5.29799386102 0.2 0 ] color "black" )
+puck( pose [ -0.23455164756  5.13168558226 0.2 0 ] color "black" )
+puck( pose [ 6.75  6.75 0.2 0 ] color "black" )
+puck( pose [ -4.39104541382  -3.62407110226 0.2 0 ] color "black" )
+puck( pose [ 2.39344062861  -2.17164722772 0.2 0 ] color "black" )
+puck( pose [ 4.01732989993  -6.93167396197 0.2 0 ] color "black" )
+puck( pose [ -6.50494630948  6.53265093787 0.2 0 ] color "black" )
+puck( pose [ 5.64738832583  5.71895650987 0.2 0 ] color "black" )
+puck( pose [ 2.39004177153  -0.726306808495 0.2 0 ] color "black" )
+puck( pose [ -1.15394703487  -5.24149603842 0.2 0 ] color "black" )
+puck( pose [ 3.78399735343  6.49319030799 0.2 0 ] color "black" )
+puck( pose [ 2.39673008173  -3.20293865622 0.2 0 ] color "black" )
+puck( pose [ -6.99414231124  -4.14702605084 0.2 0 ] color "black" )
+puck( pose [ -6.75  1.31922629096 0.2 0 ] color "black" )
+puck( pose [ 1.9894943974  3.09248902703 0.2 0 ] color "black" )
+puck( pose [ 5.4001505282  -6.90490568403 0.2 0 ] color "black" )
+puck( pose [ -6.75  -2.28628485025 0.2 0 ] color "black" )
+puck( pose [ 3.51535807175  -4.71183547014 0.2 0 ] color "black" )
+puck( pose [ -6.75  6.75 0.2 0 ] color "black" )
+puck( pose [ -1.23542168417  -2.49284226603 0.2 0 ] color "black" )
+puck( pose [ 5.43398865034  4.4140711722 0.2 0 ] color "black" )
+puck( pose [ -5.62335013817  -6.75 0.2 0 ] color "black" )
+puck( pose [ 2.30204204945  5.82107222304 0.2 0 ] color "black" )
+puck( pose [ -6.75  2.86277774404 0.2 0 ] color "black" )
+puck( pose [ -6.04698911204  -1.9705477677 0.2 0 ] color "black" )
+puck( pose [ -4.46360958125  4.58971319943 0.2 0 ] color "black" )
+puck( pose [ 5.30349257791  -0.985394268515 0.2 0 ] color "black" )
+puck( pose [ 5.8873868623  0.063641649901 0.2 0 ] color "black" )
+puck( pose [ 0.424081485111  5.37986585749 0.2 0 ] color "black" )
+puck( pose [ -3.69368104705  3.88289578057 0.2 0 ] color "black" )
+puck( pose [ 6.66203415058  -0.854626621198 0.2 0 ] color "black" )
+puck( pose [ 0.606048937256  -0.277010482019 0.2 0 ] color "black" )
+puck( pose [ -4.43226705458  -6.31484897148 0.2 0 ] color "black" )
+puck( pose [ 0.906001887437  -0.0330042997292 0.2 0 ] color "black" )
+puck( pose [ -1.02044138114  -2.6539028801 0.2 0 ] color "black" )
+puck( pose [ -6.72203916568  -0.208556845996 0.2 0 ] color "black" )
+puck( pose [ 0.447108035944  -5.5407942129 0.2 0 ] color "black" )
+puck( pose [ -6.22946070556  -0.982304113617 0.2 0 ] color "black" )
+puck( pose [ -6.75  6.75 0.2 0 ] color "black" )
+puck( pose [ 4.09964989844  2.53481879725 0.2 0 ] color "black" )
+puck( pose [ 1.58863204172  -6.75 0.2 0 ] color "black" )
